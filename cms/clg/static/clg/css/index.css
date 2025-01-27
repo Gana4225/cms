@@ -1,0 +1,20 @@
+.navbar{
+background-color : black;
+color : white;
+padding : 15px;
+width : 98%;
+margin : 0px
+box-sizing: border-box;
+position : sticky;
+}
+body{
+margin : 0px}
+
+
+.navbar a {
+  color: white; /* Link color */
+  text-decoration: none; /* No underline */
+  font-size: 16px;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}

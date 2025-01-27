@@ -1,0 +1,172 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'clg/css/master.css' %}">
+    {% block extra_css %}{% endblock %}
+    {% block title %}<title></title>{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'dashboard' %}" class="logo" style="color:white"> ASTC </a>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="{% url 'dashboard' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+            <a href="{% url 'login' %}">Logout</a>
+        </div>
+    </nav>
+
+    <script>
+        // Function to toggle the mobile menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+
+{% block content %}
+{% endblock %}
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h3>About Us</h3>
+            <p>Your trusted source for quality services. We strive to provide the best customer experience.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="{% url 'login' %}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/ganapathirao.chinta.3" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="https://www.instagram.com/astc.garividi?igsh=MTZxMXh4ZDFpb3Q0bA==" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 ST.THERESSA INSTITUTE OF ENGINEERING & TECHNOLOGY. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+    <script>
+    let timeout;  // To track inactivity timeout
+
+    // Function to send a heartbeat request
+    function sendHeartbeat() {
+        fetch("/heartbeat/", {
+            method: "GET",
+            credentials: "same-origin"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "inactive") {
+                window.location.href = "/login/";  // Redirect to login page if session is inactive
+            }
+        })
+        .catch(error => console.log("Error sending heartbeat:", error));
+    }
+
+    // Function to reset the inactivity timer on user activity
+    function resetInactivityTimer() {
+        // Clear any existing timeout
+        clearTimeout(timeout);
+
+        // Set a new timeout to check for inactivity
+        timeout = setTimeout(() => {
+            // If no activity for 15 minutes (900,000 ms), trigger session expiration
+            sendHeartbeat();
+        }, 900000);  // 15 minutes
+    }
+
+    // Detect user activity (mouse movement, scrolling, keypress)
+    window.addEventListener("mousemove", resetInactivityTimer);
+    window.addEventListener("keydown", resetInactivityTimer);
+    window.addEventListener("scroll", resetInactivityTimer);
+
+    // Initial reset of inactivity timer when the page loads
+    resetInactivityTimer();
+</script>
+
+
+
+<style>
+    /* Footer Styles */
+.footer {
+    background-color: #343a40; /* Dark background */
+    color: #ffffff; /* White text */
+    padding: 40px 20px 20px;
+    font-family: Arial, sans-serif;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-container div {
+    flex: 1;
+    min-width: 200px;
+}
+.footer-about p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin: 8px 0;
+}
+.footer-links a {
+    color: #4caf50; /* Green link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-links a:hover {
+    color: #ffffff;
+}
+.footer-social .social-icons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.footer-social a {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+.footer-social a:hover {
+    color: #ffffff;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    border-top: 1px solid #4caf50;
+    padding-top: 10px;
+}
+
+</style>
+</body>
+</html>

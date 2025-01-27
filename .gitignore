@@ -1,0 +1,56 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+
+# Django secret key and other local settings
+settings_local.py
+
+# Database files
+*.sqlite3
+
+# Static files and media uploads
+/static/
+/media/
+
+# Virtual environments
+venv/
+env/
+
+# PyCharm-specific files
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Migrations (optional, depending on your workflow)
+**/migrations/*
+!**/migrations/__init__.py
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+*.cover
+.coverage
+*.coverage.*
+
+# Test and build files
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Node modules (if using frontend frameworks like React)
+node_modules/
+
+# Temporary or backup files
+*.bak
+*.swp
+*~

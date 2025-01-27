@@ -1,0 +1,41 @@
+{% extends 'clg/master.html' %}
+{% load static %}
+{% block title %}<title>Dashboard</title>{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'clg/css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+ <h1>College Dashboard</h1>
+    <div class="dashboard">
+        <div class="card">
+            <div class="icon students">&#128100;</div>
+            <h2>Students</h2>
+            <p>1,200</p>
+        </div>
+        <div class="card">
+            <div class="icon courses">&#128218;</div>
+            <h2>Courses</h2>
+            <p>48</p>
+        </div>
+        <div class="card">
+            <div class="icon assignments">&#128221;</div>
+            <h2>Assignments</h2>
+            <p>320</p>
+        </div>
+        <div class="card">
+            <div class="icon performance">&#128202;</div>
+            <h2>Performance</h2>
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="progress-text">75% Average</div>
+        </div>
+        <div class="card">
+            <a href="{% url 'payments:home1' %}" style="text-decoration:none">
+            <div class="icon courses">💳</div>
+            <h2>Payments</h2>
+            </a>
+        </div>
+    </div><br><br><br><br><br><br><br><br><br>
+{% endblock %}

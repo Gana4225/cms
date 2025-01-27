@@ -1,0 +1,90 @@
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #343a40; /* Dark gray background */
+    color: #ffffff; /* White text */
+    position: relative; /* Ensure navbar is positioned relative */
+    z-index: 1000; /* Ensure navbar stays above everything */
+}
+
+/* Logo */
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #4caf50; /* Green logo text */
+    text-decoration: none;
+}
+
+/* Navbar links */
+.navbar .nav-links {
+    display: flex;
+    gap: 20px;
+    z-index: 1001; /* Ensure the dropdown stays above other content */
+}
+
+/* Navbar links - when active */
+.navbar .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Place it under navbar */
+    right: 20px;
+    width: 200px;
+    background-color: #343a40;
+    border-radius: 8px;
+}
+
+/* Navbar links - for large screens */
+.navbar .nav-links {
+    display: flex; /* Horizontal layout for large screens */
+    gap: 20px;
+}
+
+/* Navbar links */
+.navbar .nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #4caf50; /* Hover effect */
+    color: #ffffff;
+}
+
+/* Mobile menu button */
+.navbar .menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .navbar .menu-toggle {
+        display: block;
+    }
+
+    .navbar .nav-links {
+        display: none; /* Hide links by default */
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        background-color: #343a40;
+        border-radius: 8px;
+        flex-direction: column; /* Stack links vertically */
+        gap: 10px;
+    }
+
+    .navbar .nav-links.active {
+        display: flex; /* Show links when active */
+    }
+}

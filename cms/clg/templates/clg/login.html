@@ -1,0 +1,24 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'clg/css/login.css' %}">
+</head>
+
+<body>
+<div class="login-container">
+    <h2>Welcome Back!</h2>
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" class="input-field" placeholder="Username" required name="username"><br>
+        <input type="password" class="input-field" placeholder="Password" required name="password"><br>
+        <br><button type="submit" class="submit-btn">Login</button>
+    </form><br>
+    <a href="#" class="forgot-password">Forgot Password?</a><br>
+    <a href="{% url 'register' %}?action=register" class="login-link">Sign Up</a>
+</div>
+
+</body>
+</html>

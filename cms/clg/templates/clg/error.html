@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Error
+    </title>
+</head>
+<body>
+{% if a == 1 %}
+<div class="con">
+<h1 style="color:red">User does not exists or invalid credentials</h1>
+<br>
+<h2>You have entered the below username</h2><br>
+<h3 style="color:blue">Username : {{user}}</h3><br>
+    <div class="ret">Return to
+        <a style="text-decoration:none" href="{% url 'login' %}">Log in</a>
+    </div>
+</div>
+{% endif %}
+<style>
+    .con{
+    background-color:lightgray;
+    margin:auto;
+    margin-top:7rem;
+    justify-content:center;
+    width:fit-content;
+    padding:20px;
+    border:solid 2px black;
+    }
+    .ret{
+        font-size:24px;
+    }
+    a{
+    background-color:white;
+    padding:7px;
+    border:solid 2px black;
+    color:black;
+    }
+
+</style>
+</body>
+</html>
