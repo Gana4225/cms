@@ -1,9 +1,10 @@
-from datetime import datetime
-from django.shortcuts import render, redirect
-from .models import Re
+
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
-from .utils import check_user_logged_in
 from django.http import JsonResponse
+from .utils import *
+
 
 def home(request):
     return render(request, 'clg/login.html')
@@ -23,42 +24,41 @@ def log(request):
         password = request.POST['password']
         try:
             data = Re.objects.get(user_name=user)
-            if data.password == password:
-                request.session['user_id'] = data.id
+            print(data.user_name)
+            print(data.password)
+            if check_password(password, data.password):
+                request.session['user_id'] = data.user_name
                 request.session['last_activity'] = datetime.now().timestamp()
                 return redirect('dashboard')
-        except Re.DoesNotExist:
+        except Exception:
             a = 1
-            return render(request, "error.html", context={'user': user, 'pas': password, 'a': a})
+            return render(request, "clg/error.html",
+                          context={'user': user, 'pas': password, 'a': a})
 
     else:
         try:
             del request.session['user_id']
             del request.session['last_activity']
+            print('deleted')
         except KeyError:
             pass
         return redirect('home')
     return redirect('home')
 
+# view for user registration
+
 def reg(request):
     if request.method == 'GET':
-        action = request.GET.get('action', '')
-        if action == 'register':
-            return render(request, 'clg/register.html')
+        return handle_get_request(request)
 
     if request.method == 'POST':
-        try:
-            name = request.POST.get('username')
-            roll = request.POST.get('rollnumber')
-            mobile = request.POST.get('mobilenumber')
-            password = request.POST.get('password')
+        if 'otp' in request.POST:
+            return handle_otp_verification(request)
+        else:
+            return handle_registration(request)
 
-            Re.objects.create(user_name=name, password=password, roll_number=roll, mobile_number=mobile)
-            return render(request, 'clg/success.html', context={'name': name})
-        except Exception as e:
-            pass
+    return HttpResponse("<h1>Invalid request method</h1>")
 
-    return render(request, 'clg/success.html')
 
 def dashboard(request):
     if not check_user_logged_in(request):
@@ -77,3 +77,6 @@ def pay(request):
         return redirect('home')
 
     return redirect('second/')
+
+def otp(request):
+    return render(request, 'clg/otp.html')

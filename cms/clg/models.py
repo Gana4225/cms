@@ -13,7 +13,7 @@ class Department(models.Model):
         return self.department
 
 class Student(models.Model):
-    roll_number = models.CharField(max_length=30,null=False)
+    roll_number = models.CharField(max_length=30,null=False, primary_key=True)
     name = models.CharField(max_length=50,null=False)
     department = models.ForeignKey(Department, on_delete=models.CASCADE,null=False)
     regulation = models.ForeignKey(Regulation, on_delete=models.CASCADE,null=False)
@@ -21,14 +21,15 @@ class Student(models.Model):
     email = models.EmailField(max_length=250,null=False)
 
     def __str__(self):
-        return f"{self.roll_number} {self.name} {self.department}"
+        return f"{self.roll_number}"
 
 # class for register the user
 class Re(models.Model):
-    user_name = models.CharField(max_length=250,null=False,)
+    user_name = models.CharField(max_length=250,null=False, primary_key=True)
     password = models.CharField(max_length=200,null=False)
-    roll_number = models.CharField(max_length=30,null=False)
+    roll_number = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     mobile_number = models.CharField(max_length=20,null=False)
+    email = models.EmailField(default='', null=False, unique=True)
 
 
     def __str__(self):

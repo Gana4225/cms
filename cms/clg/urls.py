@@ -9,5 +9,7 @@ urlpatterns = [
     path('about/',about,name='about'),
     path('payments',pay,name='pay'),
     path('heartbeat/',heartbeat, name='heartbeat'),
+    path('otp/', otp, name='otp')
+
 
 ]

@@ -9,15 +9,35 @@
 
 <body>
 <div class="login-container">
+
     <h2>Welcome Back!</h2>
+
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        <input type="text" class="input-field" placeholder="Username" required name="username"><br>
-        <input type="password" class="input-field" placeholder="Password" required name="password"><br>
-        <br><button type="submit" class="submit-btn">Login</button>
+
+        <input type="text" class="input-field"
+               placeholder="Username"
+               required name="username"><br>
+
+        <input type="password"
+               class="input-field"
+               placeholder="Password"
+               required name="password"><br>
+
+        <br><button type="submit"
+                    class="submit-btn">Login
+            </button>
     </form><br>
-    <a href="#" class="forgot-password">Forgot Password?</a><br>
-    <a href="{% url 'register' %}?action=register" class="login-link">Sign Up</a>
+
+        <a style="text-decoration:none;color:white"
+           href="{% url 'register' %}?action=register">
+
+            <button class="submit-btn">Sign Up</button>
+
+        </a>
+    <br><br>
+    <a style="text-decoration:none;color:blue"
+       href="#" class="login-link">Forgot Password?</a>
 </div>
 
 </body>

@@ -1,0 +1,54 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification</title>
+    <link rel="stylesheet" href="{% static 'clg/css/otp.css' %}">
+</head>
+<body>
+    <div class="container">
+        {% if error %}
+                <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+
+        <h1>OTP Verification</h1>
+        <p>An OTP has been sent to your Email: <br><strong>{{ email }}</strong></p>
+        <p class="timer">OTP Expires in: <span id="timer">5:00</span></p>
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <input type="text" id="otp" name="otp" placeholder="Enter 6-digit OTP" required>
+            <button type="submit">Verify OTP</button>
+        </form>
+        <div class="footer">
+            <p>Didn't receive the OTP? <a href="#">Resend OTP</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Timer duration in seconds (5 minutes)
+        const duration = 300;
+        let remainingTime = duration;
+
+        // Function to format time as mm:ss
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Update the timer display every second
+        const timerElement = document.getElementById('timer');
+        const timerInterval = setInterval(() => {
+            remainingTime--;
+
+            if (remainingTime >= 0) {
+                timerElement.textContent = formatTime(remainingTime);
+            } else {
+                clearInterval(timerInterval);
+                timerElement.textContent = "OTP expired!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
