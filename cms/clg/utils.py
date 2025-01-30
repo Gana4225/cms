@@ -31,25 +31,17 @@ def send_otp_email(email, otp):
         Admissions Team
     """
 
+    from django.core.mail import send_mail
     try:
-        data = Re.objects.get(email=email)
-    except Exception:
-        pass
-
-    if data.email == email:
-        return HttpResponse("this user already exist")
-    else:
-        from django.core.mail import send_mail
-        try:
-            send_mail(
-                subject,
-                body,
-                'chganapathi4225@gmail.com',  # Replace with your sender email
-                [email],
-                fail_silently=False,
-            )
-        except Exception as e:
-            raise Exception(f"Failed to send OTP: {e}")
+        send_mail(
+            subject,
+            body,
+            'chganapathi4225@gmail.com',  # Replace with your sender email
+            [email],
+            fail_silently=False,
+        )
+    except Exception as e:
+        raise Exception(f"Failed to send OTP: {e}")
 
 
 # Helper function to validate OTP
@@ -109,24 +101,44 @@ def handle_otp_verification(request):
     except Student.DoesNotExist:
         return HttpResponse("<h1>Student not found with the given roll number.</h1>")
 
+
+
 # Function to handle initial registration
+
+
 def handle_registration(request):
-    try:
-        name = request.POST.get('username')
-        roll = request.POST.get('rollnumber').upper()
-        mobile = request.POST.get('mobilenumber')
-        email = request.POST.get('email')
-        password = make_password(request.POST.get('password'))
-        print(roll)
+    if request.method == "POST":
         try:
-            data = Student.objects.get(roll_number = roll)
+            name = request.POST.get('username')
+            roll = request.POST.get('rollnumber').upper()
+            mobile = request.POST.get('mobilenumber')
+            email = request.POST.get('email')
+            password = make_password(request.POST.get('password'))
+
+            # Check if username already exists
+            if Re.objects.filter(user_name=name).exists():
+                return HttpResponse("<h1>Username Already Exists</h1>")
+
+            # Check if roll number exists in Student table
+            try:
+                student_data = Student.objects.get(roll_number=roll)
+            except Student.DoesNotExist:
+                return HttpResponse("<h1>Roll Number Does Not Exist</h1>")
+
+            # Check if email or roll number is already registered
+            if Re.objects.filter(email=email).exists():
+                return HttpResponse("<h1>Email Already Exists</h1>")
+
+            if Re.objects.filter(roll_number=roll).exists():
+                return HttpResponse("<h1>This Roll Number is Already Registered</h1>")
+
             # Generate OTP and store in session
             otp = str(random.randint(100000, 999999))
             request.session.update({
                 'otp': otp,
                 'otp_timestamp': now().timestamp(),
                 'username': name,
-                'rollnumber': data.roll_number,
+                'rollnumber': student_data.roll_number,
                 'mobilenumber': mobile,
                 'email': email,
                 'password': password,
@@ -135,12 +147,9 @@ def handle_registration(request):
             # Send OTP email
             send_otp_email(email, otp)
 
-        except Exception:
-            return HttpResponse("<h1>Roll Number Does Not Exist</h1><br>\
-                                <a  style = 'font-size:20px' \
-                                href='http://192.168.195.247/register/?action=register'>\
-                                Click Here</a>")
+            return render(request, 'clg/otp.html', {'email': email})
 
-        return render(request, 'clg/otp.html', {'email': email})
-    except Exception as e:
-        return HttpResponse(f"<h1>Error occurred: {e}</h1>")
+        except Exception as e:
+            return HttpResponse(f"<h1>Something went wrong: {str(e)}</h1>")
+
+    return HttpResponse("<h1>Invalid Request</h1>")

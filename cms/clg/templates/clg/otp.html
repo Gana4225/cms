@@ -34,7 +34,7 @@
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const secs = seconds % 60;
-            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+            return ${minutes}:${secs < 10 ? '0' : ''}${secs};
         }
 
         // Update the timer display every second
@@ -52,3 +52,4 @@
     </script>
 </body>
 </html>
+
