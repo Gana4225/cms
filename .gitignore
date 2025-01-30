@@ -8,6 +8,7 @@ __pycache__/
 
 # Django secret key and other local settings
 settings_local.py
+privatekeys.py
 
 # Database files
 *.sqlite3
