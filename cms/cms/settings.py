@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'clg',
     'rest_framework',
     'payments',
+    'import_export',
 ]
 
 MIDDLEWARE = [

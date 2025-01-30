@@ -55,3 +55,4 @@ node_modules/
 *.bak
 *.swp
 *~
+test.py
