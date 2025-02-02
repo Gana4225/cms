@@ -1,0 +1,71 @@
+{% extends 'clg/master.html' %}
+{% load static %}
+{% block title %}<title>Edit Profile</title>{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'clg/css/editprofile.css' %}">
+{% endblock %}
+{% block content %}
+
+<body style="margin:0px">
+    <div class="edit-profile-container">
+        <h2 class="fade-in">Edit Profile</h2>
+        <form method="POST" action="{% url 'update_profile' %}" enctype="multipart/form-data" class="slide-up">
+            {% csrf_token %}
+
+            <!-- User Name -->
+            <div class="form-group">
+                <label for="username">Change Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+
+             <!-- old Password -->
+            <div class="form-group">
+                <label for="password">Old Password</label>
+                <input type="password" id="password" name="old_password">
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">New Password</label>
+                <input type="password" id="password1" name="password">
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm_password">
+            </div>
+
+            <!-- Profile Image -->
+            <div class="form-group">
+                <label for="profile-image">Change Profile Image</label>
+                <div class="custom-file-upload">
+                    <input type="file" id="profile-image" name="profile_image" accept="image/*" onchange="displayImage(event)">
+                    <label for="profile-image" class="file-label">
+                        <span class="camera-icon"></span> Choose Image
+                    </label>
+                </div>
+                <img id="preview" src="#" alt="Image Preview" style="display:none; max-width: 150px; margin-top: 10px;"/>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary scale-on-hover">Save Changes</button>
+        </form>
+    </div>
+
+
+    <script>
+        function displayImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = "block"; // Show the image preview
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+</body>
+{% endblock %}
