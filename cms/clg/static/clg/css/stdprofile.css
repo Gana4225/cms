@@ -1,0 +1,140 @@
+/* Custom styles for student profile */
+
+/* Center the profile card */
+.student-profile-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 64vh; /* Ensures the profile card is vertically centered */
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+/* Profile Card Styling */
+.student-profile-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    display: flex;
+    border:solid 2px blue;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Hover Effect for Profile Card */
+.student-profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile Header Styling */
+.student-profile-header {
+    margin-bottom: 20px;
+}
+
+.student-profile-header img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid black;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.student-profile-header img:hover {
+    transform: scale(1.1);
+}
+
+.student-profile-header h2 {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-top: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Profile Info Styling */
+.student-profile-details {
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* General Info Styling */
+.student-profile-details p {
+    font-size: 18px;
+    margin: 15px 0;
+    color: #7f8c8d;
+    display: flex;
+    justify-content: space-between; /* Aligns the label and value */
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.student-profile-details p:hover {
+    color: #2980b9;
+}
+
+.student-profile-details p .label {
+    font-weight: 600;
+    color: #3498db;
+    text-align: left;
+    width: 40%;
+    word-wrap: break-word;
+}
+
+.student-profile-details p .value {
+    font-weight: 400;
+    color: #2c3e50;
+    text-align: left;
+    width: 60%;
+    word-wrap: break-word;
+}
+
+
+
+.student-progress-bar {
+    height: 100%;
+    width: 80%;
+    background: #2980b9;
+    animation: progress 3s ease-out infinite;
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 80%; }
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .student-profile-card {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .student-profile-header img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .student-profile-header h2 {
+        font-size: 22px;
+    }
+
+    .student-profile-details p {
+        font-size: 16px;
+    }
+
+    .student-profile-footer {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

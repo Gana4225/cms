@@ -1,13 +1,16 @@
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from .utils import *
+from django.http import JsonResponse
+
+
 
 
 def home(request):
 
     return render(request, 'clg/login.html')
+
 
 
 def heartbeat(request):
@@ -120,3 +123,16 @@ def otp(request):
 
     return render(request, 'clg/otp.html')
 
+def stdprofile(request):
+    if not check_user_logged_in(request):
+
+        return redirect('home')
+
+
+
+
+    a = request.session.get('user_id')
+    b=Re.objects.get(user_name=a)
+    c=Student.objects.get(roll_number=b.roll_number)
+
+    return render(request, 'clg/stdprofile.html', {'student':c})

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
 from django.utils.timezone import now
-from .models import Re,Student
+from .models import *
 import random
 from datetime import datetime
 def check_user_logged_in(request):
@@ -153,3 +153,6 @@ def handle_registration(request):
             return HttpResponse(f"<h1>Something went wrong: {str(e)}</h1>")
 
     return HttpResponse("<h1>Invalid Request</h1>")
+
+
+

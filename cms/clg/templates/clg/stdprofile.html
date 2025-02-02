@@ -1,0 +1,30 @@
+{% extends 'clg/master.html' %}
+{% load static %}
+{% block title %}<title>Profile</title>{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'clg/css/stdprofile.css' %}">
+{% endblock %}
+{% block content %}
+<body style="margin:0px">
+    <div class="student-profile-card-container">
+        <!-- Profile Card -->
+        <div class="student-profile-card">
+            <!-- Profile Header -->
+            <div class="student-profile-header">
+                <img src="{{ student.image.url }}" alt="Student Photo">
+                <h2>{{ student.name }}</h2>
+            </div>
+
+            <!-- Profile Details -->
+            <div class="student-profile-details">
+                <p><span class="label">Roll Number</span><span class="value"><strong>: {{ student.roll_number }}</strong></span></p>
+                <p><span class="label">Department</span><span class="value"><strong>: {{ student.department }}</strong></span></p>
+                <p><span class="label">Regulation</span><span class="value"><strong>: {{ student.regulation }}</strong></span></p>
+                <p><span class="label">Email</span><span class="value"><a style="text-decoration:none" href="mailto:{{ student.email }}"><strong>: {{ student.email }}</strong></a></span></p>
+                <p><span class="label">Mobile Number</span><span class="value"><strong>: {{ student.mobile_number }}</strong></span></p>
+            </div>
+
+        </div>
+    </div>
+</body>
+{% endblock %}
