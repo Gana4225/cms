@@ -41,3 +41,8 @@ class test(models.Model):
 
     def __str__(self):
         return f"{self.roll_number} {self.department}"
+
+class Course(models.Model):
+    course_id = models.IntegerField(max_length=10, null=False, primary_key=True)
+    name = models.CharField(max_length=200, null=False)
+    description = models.TextField(null=False)

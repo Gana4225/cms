@@ -10,14 +10,42 @@
     <div class="student-profile-card-container">
         <!-- Profile Card -->
         <div class="student-profile-card">
+
             <!-- Profile Header -->
             <div class="student-profile-header">
-                <img src="{% if student.image %}{{ student.image.url }}{% else %}{{ STATIC_URL }}default-profile.png{% endif %}" alt="Student Image" name="">
+
+
+
+                <a href="{{ student.image.url }}" id="studentImageLink">
+    <img src="{% if student.image %}{{ student.image.url }}{% else %}{{ STATIC_URL }}default-profile.png{% endif %}"
+         alt="Student Image" id="studentImage" style="cursor: pointer;">
+</a>
+
+<!-- JavaScript to Enable Double Click -->
+<script>
+    document.getElementById("studentImage").addEventListener("dblclick", function(event) {
+        event.preventDefault(); // Prevent the default single-click behavior
+        window.open(document.getElementById("studentImageLink").href, "_blank");
+    });
+
+    // Prevent single-click from working
+    document.getElementById("studentImage").addEventListener("click", function(event) {
+        event.preventDefault(); // Stop single click from opening the image
+    });
+</script>
+
+
+
+
                 <h2>{{ student.name }}</h2>
+
                 <!-- Gear Icon -->
                 <a href="{%  url 'update_profile' %}" class="settings-icon">
+
                     <img src="{% static 'clg/images/gear.png' %}" alt="Settings">
+
                 </a>
+
             </div>
 
             <!-- Profile Details -->
@@ -49,6 +77,8 @@
             height: 100%;
         }
     </style>
+
+
 
 
 
