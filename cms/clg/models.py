@@ -12,17 +12,18 @@ class Department(models.Model):
     def __str__(self):
         return self.department
 
+
 class Student(models.Model):
     roll_number = models.CharField(max_length=30, primary_key=True)
     name = models.CharField(max_length=50)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    regulation = models.ForeignKey(Regulation, on_delete=models.CASCADE)
+    department = models.ForeignKey('Department', on_delete=models.CASCADE)
+    regulation = models.ForeignKey('Regulation', on_delete=models.CASCADE)
     mobile_number = models.CharField(max_length=20)
     email = models.EmailField(max_length=250, unique=True)
-    image = models.ImageField(upload_to='stdp', null=True)
+    image = models.ImageField(null=True, blank=True,default='default-profile.png')
 
     def __str__(self):
-        return f"{self.roll_number}"
+        return self.roll_number
 
 class Re(models.Model):
     user_name = models.CharField(max_length=250, primary_key=True)

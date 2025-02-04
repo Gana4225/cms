@@ -9,10 +9,9 @@
 
 <body>
 <div class="login-container">
-
     <h2>Welcome Back!</h2>
 
-    <form action="{% url 'login' %}" method="POST">
+    <form id="loginForm" action="{% url 'login' %}" method="POST">
         {% csrf_token %}
 
         <input type="text" class="input-field"
@@ -24,21 +23,161 @@
                placeholder="Password"
                required name="password"><br>
 
-        <br><button type="submit"
-                    class="submit-btn">Login
-            </button>
-    </form><br>
+        <br>
+        <button type="submit" id="loginButton"
+                class="submit-btn">Login</button>
 
-        <a style="text-decoration:none;color:white"
-           href="{% url 'register' %}?action=register">
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </form>
 
-            <button class="submit-btn">Sign Up</button>
+    <br>
+    <a style="text-decoration:none;color:white"
+       href="{% url 'register' %}?action=register">
+        <button class="submit-btn">Sign Up</button>
+    </a>
 
-        </a>
     <br><br>
     <a style="text-decoration:none;color:blue"
        href="#" class="login-link">Forgot Password?</a>
 </div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();  // Stop instant submission
+
+        // Hide the login button and show the progress bar
+        document.getElementById("loginButton").style.display = "none";
+        document.getElementById("progressContainer").style.display = "block";
+
+        // Start filling the progress bar with a vibrant color in 3 seconds
+        document.getElementById("progressBar").style.width = "100%";
+
+        // Wait for 3 seconds before submitting the form
+        setTimeout(function() {
+            document.getElementById("loginForm").submit();  // Submit after 3 seconds
+        }, 3000); // 3 seconds delay
+    });
+</script>
+
+
+
+<style>
+        /* Page Background Animation */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Login Container */
+        .login-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        /* Slide-in Animation */
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #6e8efb;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #5a77d8;
+        }
+
+        .login-link {
+            color: #6e8efb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Progress Bar Container */
+        .progress-container {
+            display: none;
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        /* Progress Bar with Vibrant Colors */
+        .progress-bar {
+            height: 10px;
+            width: 0;
+            background: linear-gradient(90deg, #ff6ec7, #ff9a8b, #ff6ec7); /* Vibrant Pink-Red Gradient */
+            border-radius: 5px;
+            position: relative;
+            transition: width 3s ease-in-out; /* Reduced time to 3 seconds */
+        }
+
+        /* Shining Tip Effect */
+        .progress-bar::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            top: -2.5px;
+            left: -10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: moveTip 3s ease-in-out forwards; /* 3 seconds for the tip movement */
+        }
+
+        @keyframes moveTip {
+            from { left: -10px; }
+            to { left: 100%; }
+        }
+    </style>
+
+
 
 </body>
 </html>

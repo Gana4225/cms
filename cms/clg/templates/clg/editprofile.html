@@ -12,11 +12,6 @@
         <form method="POST" action="{% url 'update_profile' %}" enctype="multipart/form-data" class="slide-up">
             {% csrf_token %}
 
-            <!-- User Name -->
-            <div class="form-group">
-                <label for="username">Change Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
 
 
              <!-- old Password -->
@@ -52,6 +47,10 @@
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary scale-on-hover">Save Changes</button>
         </form>
+
+        <p style="margin:auto">
+            for any changes of username please contact department
+        </p>
     </div>
 
 

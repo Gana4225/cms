@@ -1,43 +1,42 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>
-        Error
-    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="{% static 'clg/css/error.css' %}">
 </head>
 <body>
-{% if a == 1 %}
-<div class="con">
-<h1 style="color:red">User does not exists or invalid credentials</h1>
-<br>
-<h2>You have entered the below username</h2><br>
-<h3 style="color:blue">Username : {{user}}</h3><br>
-    <div class="ret">Return to
-        <a style="text-decoration:none" href="{% url 'login' %}">Log in</a>
-    </div>
-</div>
-{% endif %}
-<style>
-    .con{
-    background-color:lightgray;
-    margin:auto;
-    margin-top:7rem;
-    justify-content:center;
-    width:fit-content;
-    padding:20px;
-    border:solid 2px black;
-    }
-    .ret{
-        font-size:24px;
-    }
-    a{
-    background-color:white;
-    padding:7px;
-    border:solid 2px black;
-    color:black;
-    }
 
-</style>
+<div class="error-container">
+    {% if a == 1 %}
+        <h1>User Not Found</h1>
+        <p class="message">Invalid credentials or the user does not exist.</p>
+        <h2>You entered:</h2>
+        <h3>Username: {{ user }}</h3>
+        <a href="{% url 'login' %}" class="return-link">Return to Login</a>
+    {% endif %}
+
+    {% if code == 20 %}
+        <h2>Old Password Incorrect</h2>
+        <p class="message">Please enter the correct old password.</p>
+        <script>
+            setTimeout(function() {
+                window.location.href = '/update_profile/';
+            }, 5000);
+        </script>
+    {% endif %}
+
+    {% if code == 202 %}
+        <h2>Passwords Do Not Match</h2>
+        <p class="message">Your new password and confirmation password do not match.</p>
+        <script>
+            setTimeout(function() {
+                window.location.href = '/update_profile/';
+            }, 5000);
+        </script>
+    {% endif %}
+</div>
+
 </body>
 </html>

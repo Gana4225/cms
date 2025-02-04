@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.utils.timezone import now
 from .models import *
 import random
@@ -156,3 +157,56 @@ def handle_registration(request):
 
 
 
+
+
+
+def updatepf(request):
+    if not check_user_logged_in(request):
+        return redirect('home')
+
+    if request.method == "GET":
+        return render(request, 'clg/editprofile.html')
+
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Check if passwords match
+        if password == confirm_password:
+            encrypted_password = make_password(password)
+            try:
+                # Get the current user's data using the session user_id
+                user = Re.objects.get(user_name=request.session.get('user_id'))
+                data = Student.objects.get(roll_number=user.roll_number)
+
+                # Check if the old password matches the stored password
+                if check_password(old_password, user.password):
+                    user.password = encrypted_password
+
+                    # Handle profile image upload
+                    if 'profile_image' in request.FILES:
+                        profile_image = request.FILES['profile_image']
+
+                        # If you want to save the image in a specific location, use FileSystemStorage:
+                        fs = FileSystemStorage()
+                        filename = fs.save(profile_image.name, profile_image)
+                        data.image = filename
+
+                    data.save()  # Save the updated data
+                else:
+                    code = 20
+                    return render(request,
+                                  'clg/error.html',
+                                  {'code':code})
+            except Exception as e:
+                print("Error updating profile:", e)
+                return render(request, 'clg/error.html', {'message': 'An error occurred while updating the profile.'})
+        else:
+
+            code = 202
+            return render(request,
+                          'clg/error.html',
+                          {'code': code})
+
+    return redirect('profile')  # Redirect to the profile page after updating

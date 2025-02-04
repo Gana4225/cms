@@ -8,13 +8,15 @@
 {% block content %}
  <h1>College Dashboard</h1>
     <div class="dashboard">
+        <a href="{% url 'profile' %}" style="text-decoration:none">
         <div class="card">
-            <a href="{% url 'profile' %}" style="text-decoration:none">
+
             <div class="icon students">&#128100;</div>
             <h2>Students</h2>
             <p>1,200</p>
-            </a>
+
         </div>
+        </a>
         <div class="card">
             <div class="icon courses">&#128218;</div>
             <h2>Courses</h2>

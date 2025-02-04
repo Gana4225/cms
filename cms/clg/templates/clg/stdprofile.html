@@ -12,7 +12,7 @@
         <div class="student-profile-card">
             <!-- Profile Header -->
             <div class="student-profile-header">
-                <img src="{{ student.image.url }}" alt="Student Photo">
+                <img src="{% if student.image %}{{ student.image.url }}{% else %}{{ STATIC_URL }}default-profile.png{% endif %}" alt="Student Image" name="">
                 <h2>{{ student.name }}</h2>
                 <!-- Gear Icon -->
                 <a href="{%  url 'update_profile' %}" class="settings-icon">
