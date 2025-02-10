@@ -150,3 +150,5 @@ def update_profile(request):
         return redirect('home')
 
     return updatepf(request)
+def dd(request):
+    return render(request, 'clg/login.html')

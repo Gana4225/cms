@@ -15,6 +15,7 @@ urlpatterns = [
     path('heartbeat/',heartbeat, name='heartbeat'),
     path('otp/', otp, name='otp'),
     path('profile/',stdprofile, name='profile'),
-    path('update_profile/',update_profile,name='update_profile')
+    path('update_profile/',update_profile,name='update_profile'),
+    path('',dd,name='dd'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
