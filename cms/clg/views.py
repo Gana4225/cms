@@ -6,7 +6,7 @@ from django.http import JsonResponse
 
 
 
-def home(request, pk):
+def home(request):
     if not check_user_logged_in(request):
         return render(request, 'clg/login.html')
     return redirect('dashboard')
