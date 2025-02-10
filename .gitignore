@@ -11,7 +11,7 @@ settings_local.py
 privatekeys.py
 
 # Database files
-*.sqlite3
+
 
 # Static files and media uploads
 /static/

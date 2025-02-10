@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('<str:pk>/',home,name='home'),
+    path('',home,name='home'),
     path('register/',reg,name="register"),
     path('login/',log,name='login'),
     path('logout/',clogout,name='logout'),
@@ -16,6 +16,5 @@ urlpatterns = [
     path('otp/', otp, name='otp'),
     path('profile/',stdprofile, name='profile'),
     path('update_profile/',update_profile,name='update_profile'),
-    path('',dd,name='dd'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
