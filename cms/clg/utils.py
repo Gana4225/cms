@@ -195,10 +195,25 @@ def updatepf(request):
 
                     data.save()  # Save the updated data
                 else:
-                    code = 20
-                    return render(request,
-                                  'clg/error.html',
-                                  {'code':code})
+
+
+                    # Handle profile image upload
+                    if 'profile_image' in request.FILES:
+                        profile_image = request.FILES['profile_image']
+
+                        # If you want to save the image in a specific location, use FileSystemStorage:
+                        fs = FileSystemStorage()
+                        filename = fs.save(profile_image.name, profile_image)
+                        data.image = filename
+                        data.save()  # Save the updated data
+
+                    else:
+                        code = 20
+                        return render(request,
+                                      'clg/error.html',
+                                      {'code': code})
+
+
             except Exception as e:
                 print("Error updating profile:", e)
                 return render(request, 'clg/error.html', {'message': 'An error occurred while updating the profile.'})

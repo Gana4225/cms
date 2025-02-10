@@ -43,6 +43,10 @@ class test(models.Model):
         return f"{self.roll_number} {self.department}"
 
 class Course(models.Model):
-    course_id = models.IntegerField(max_length=10, null=False, primary_key=True)
+    course_id = models.IntegerField(null=False, primary_key=True)
     name = models.CharField(max_length=200, null=False)
     description = models.TextField(null=False)
+
+class mids(models.Model):
+    subject_code = models.CharField(max_length=20, null=False)
+

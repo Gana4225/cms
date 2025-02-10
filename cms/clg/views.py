@@ -1,14 +1,18 @@
 from django.views.decorators.csrf import csrf_exempt
 from .utils import *
 from django.http import JsonResponse
+from .serializers import StdSer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 
-
-def home(request):
+@api_view(['GET'])  # Use @api_view
+def home(request, pk):
     if not check_user_logged_in(request):
-        return render(request, 'clg/login.html')
-    return redirect('dashboard')
+        queryset = Student.objects.get(roll_number = pk)
+        serializer = StdSer(queryset)
+        return Response(serializer.data)
 
 def heartbeat(request):
 
